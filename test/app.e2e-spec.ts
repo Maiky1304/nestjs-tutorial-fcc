@@ -151,7 +151,7 @@ describe('app e2e test', () => {
           .withHeaders({
             Authorization: 'Bearer $S{access_token}',
           })
-          .expectBody([]);
+          .expectJsonLength(0);
       });
     });
 
@@ -232,6 +232,16 @@ describe('app e2e test', () => {
             Authorization: 'Bearer $S{access_token}',
           })
           .expectStatus(204);
+      });
+
+      it('should get empty bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{access_token}',
+          })
+          .expectJsonLength(0);
       });
     });
   });
