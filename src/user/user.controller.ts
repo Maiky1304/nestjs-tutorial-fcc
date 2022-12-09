@@ -1,12 +1,12 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
+import { JwtGuard } from '../auth/guard';
+import { User } from '../auth/decorator/get-user.decorator';
 
 @Controller('/users')
 export class UserController {
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtGuard)
   @Get('/identify')
-  getMe(@Req() req: Request) {
-    return req.user;
+  getMe(@User() user: any) {
+    return user;
   }
 }
